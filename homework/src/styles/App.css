@@ -4,23 +4,20 @@
    box-sizing: border-box;
 }
 
-
+#root {
+ display: flex;
+   justify-content: center;
+}
 .App {
-   display: flex;
-   justify-content: center;
-   width: 100%;
+   width: 700px;
 }
 
-.Sometxt {
+/* .message {
    display: flex;
-   justify-content: center;
-   margin-top: 70px;
-   color: brown;
-   font-size: 40px;
-   border: 3px solid #772208;
-   border-radius: 69%;
-   box-shadow: 3px 6px 13px rgb(39, 23, 1);
    padding: 15px;
-   background-color: beige;
-   width: 40%;
-}
+   margin-top: 50px;
+   border: 2px solid #30015f;
+
+} */
+
+
