@@ -4,20 +4,6 @@
    box-sizing: border-box;
 }
 
-#root {
- display: flex;
-   justify-content: center;
-}
-.App {
-   width: 700px;
-}
 
-/* .message {
-   display: flex;
-   padding: 15px;
-   margin-top: 50px;
-   border: 2px solid #30015f;
-
-} */
 
 
