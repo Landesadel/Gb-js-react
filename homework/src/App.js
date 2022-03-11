@@ -22,18 +22,19 @@ function App() {
     
     setMessages([...messagesList])
 
-    return messages.map((object) => (
-      <div>
-        <h2>{object.author}</h2>
-        <p>{object.text}</p>
-      </div>
-    ))
   };
 
   return (
     <div className='App'>
-      <div>{messages}</div>
-      <button onClick={messageRend}></button>
+      <h2>Задание 1.2</h2>
+      <div className='message-box'>{messages.map((object) => (
+      <div className='user-box'>
+        <h3 className='user-name'>{object.author}</h3>
+        <p className='user-text'>{object.text}</p>
+      </div>
+    ))}</div>
+      <button className='btn-mes' onClick={messageRend}>Click me</button>
+      <hr/>
     </div>
   );
  
