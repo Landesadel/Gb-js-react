@@ -1,7 +1,41 @@
 * {
    margin: 0;
    padding: 0;
-   box-sizing: border-box;
+}
+
+
+.App {
+   width: 800px;
+   margin: auto;
+}
+
+h2 {
+   margin: 30px auto;
+}
+.message-box {
+   border: 3px solid #034b2f;
+   padding: 20px;
+   width: 145vh;
+   min-height: 57vh;
+   margin: auto;
+}
+
+.user-box {
+   border: 2px solid #315e04;
+   margin-top: 15px;
+   border-radius: 13px;
+   padding: 5px;
+   max-width: 60%;
+   background-color: #e2bd85;
+}
+.btn-mes {
+   display: block;
+  
+   padding: 10px;
+   border-radius: 10px;
+   background-color: #4b3a03;
+   color: antiquewhite;
+   margin: 35px 350px;
 }
 
 
