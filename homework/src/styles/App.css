@@ -15,8 +15,8 @@ h2 {
 .message-box {
    border: 3px solid #034b2f;
    padding: 20px;
-   width: 145vh;
-   min-height: 57vh;
+   width: 450px;
+   min-height: 250px;
    margin: auto;
 }
 
