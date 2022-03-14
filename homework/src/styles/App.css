@@ -8,16 +8,19 @@
    width: 800px;
    margin: auto;
 }
-
-h2 {
-   margin: 30px auto;
+.rend-box {
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   align-items: center;
+   width: 800px;
 }
 .message-box {
    border: 3px solid #034b2f;
    padding: 20px;
    width: 450px;
    min-height: 250px;
-   margin: auto;
+   margin: 10px auto;
 }
 
 .user-box {
@@ -30,14 +33,15 @@ h2 {
 }
 .btn-mes {
    display: block;
-  
+   width: 60%;
    padding: 10px;
    border-radius: 10px;
    background-color: #4b3a03;
    color: antiquewhite;
-   margin: 35px 350px;
+   margin-bottom: 5px;
+ 
 }
-
-
-
-
+.btn-box {
+   width: 20%;
+   display: flex;
+}
