@@ -2,46 +2,6 @@
    margin: 0;
    padding: 0;
 }
-
-
 .App {
-   width: 800px;
    margin: auto;
-}
-.rend-box {
-   display: flex;
-   flex-direction: column;
-   justify-content: space-between;
-   align-items: center;
-   width: 800px;
-}
-.message-box {
-   border: 3px solid #034b2f;
-   padding: 20px;
-   width: 450px;
-   min-height: 250px;
-   margin: 10px auto;
-}
-
-.user-box {
-   border: 2px solid #315e04;
-   margin-top: 15px;
-   border-radius: 13px;
-   padding: 5px;
-   max-width: 60%;
-   background-color: #e2bd85;
-}
-.btn-mes {
-   display: block;
-   width: 60%;
-   padding: 10px;
-   border-radius: 10px;
-   background-color: #4b3a03;
-   color: antiquewhite;
-   margin-bottom: 5px;
- 
-}
-.btn-box {
-   width: 20%;
-   display: flex;
 }
