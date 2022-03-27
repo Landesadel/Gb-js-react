@@ -12,8 +12,8 @@ export const MessageBox = () => {
 
  
 
-  const addNewMessage = () => {
-    // e.preventDefault()
+  const addNewMessage = (e) => {
+    e.preventDefault()
     if (message) {
       setMessagesList([
         ...messagesList,
@@ -23,23 +23,21 @@ export const MessageBox = () => {
           date: new Date().toLocaleDateString(),
         },
       ]);
-           
       setMessage('');
     };
  
  };
    
-  const pressInput = ({ code }) => {
-    if (code === 'Enter') {
-      addNewMessage();
-    }
-  };
+ const PressInput = ({ code }) => {
+  if (code === "Enter") {
+    addNewMessage();
+  }
+};
 
 
    useEffect(() => {
      const lastMess = messagesList[messagesList.length - 1];
      let timerId = null;
- 
      if (messagesList.length && lastMess.author !== 'Bot') {
        timerId = setTimeout(() => {
          setMessagesList([
@@ -54,6 +52,7 @@ export const MessageBox = () => {
      }
      return () => {
        clearInterval(timerId);
+       
      };   
    }, [messagesList]);
  
@@ -61,7 +60,7 @@ export const MessageBox = () => {
      <>
         <div> 
             {messagesList.map((message) => //перебираем массив мепом , и отображаем его через компонент MessageItem (верстка) 
-              <MessageItem   message={message} key={message.id} />
+              <MessageItem   message={message} key={message.data} />
             )} 
                  
         </div>
@@ -72,8 +71,14 @@ export const MessageBox = () => {
                 placeholder="Текст сообщения"
                 value={message}
                 onChange={e => setMessage(e.target.value)}
-                onKeyPress={pressInput}
+                onKeyPress={PressInput}
                 fullWidth
+                autoFocus={true}
+                ref={function(input) {
+                    if (input != null) {
+                      input.focus();
+                    }
+                }}
                 endAdornment={
                     <InputAdornment position='end'>
                       <Send className={styles.icon} onClick={addNewMessage}/>
