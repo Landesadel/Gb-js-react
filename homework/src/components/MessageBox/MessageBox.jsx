@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { MessageItem } from './MessageItem';
 import { Input, InputAdornment } from '@mui/material';
 import { Send } from '@mui/icons-material';
@@ -9,8 +9,13 @@ export const MessageBox = () => {
   const [messagesList, setMessagesList] = useState([]);
   const [message, setMessage] = useState("");
   const styles = useStyles();
+  const ref = useRef();
 
- 
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.scrollTo(0, ref.current.scrollHeight);
+    }
+  }, [messagesList]);
 
   const addNewMessage = (e) => {
     e.preventDefault()
@@ -44,7 +49,7 @@ export const MessageBox = () => {
            ...messagesList,
            {
              author: 'Bot',
-             text: 'HEllo from BOt!V_o_O_V',
+             text: 'Some very interesting answer!V_o_O_V',
              date: new Date().toLocaleDateString(),
            },
          ]);
@@ -58,7 +63,7 @@ export const MessageBox = () => {
  
    return (
      <>
-        <div> 
+        <div ref={ref}> 
             {messagesList.map((message) => //перебираем массив мепом , и отображаем его через компонент MessageItem (верстка) 
               <MessageItem   message={message} key={message.data} />
             )} 

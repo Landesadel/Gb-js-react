@@ -1,9 +1,9 @@
-import React from "react";
+import {memo} from "react";
 import cls from 'classnames';
 import styles from './MessageItem.module.css';
 
 
-export function MessageItem ({message}) {
+export const MessageItem = memo(({message}) => {
    return (
       <div
          className={cls(styles.messageBox, {
@@ -14,4 +14,4 @@ export function MessageItem ({message}) {
          <p>{message.date}</p>
       </div>
    );
-};
+});
