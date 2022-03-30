@@ -15,13 +15,13 @@ import {
 
 const menuList = [
    { title: 'Home', to: '/' },
-   { title: 'Profile', to: '/Profile' },
-   { title: 'Chat', to: '/Chat' },
+   { title: 'Profile', to: '/profile' },
+   { title: 'Chat', to: '/chat' },
 ]
 
 export const Header = () => {
    return (
-      <AppBar position='static' color='primary' className={styles.appBar}>
+      <AppBar  position='static' color='primary' className={styles.appBar}>
          <Container maxWidth='xl'>
            <Toolbar>
                <Typography

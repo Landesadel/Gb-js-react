@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { List } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { Chat } from './Chat';
 
 export function ChatList() {
@@ -18,19 +19,22 @@ export function ChatList() {
       },  
    ]);
    
+   
    const [selectIndex, setSelectIndex] = useState(0);
 
 
    return (
       <List component='nav'>
          {chats.map((chat, index) => (
-            <Chat
-               title={chat.title}
-               key={chat.id}
-               selected={selectIndex === index}
-               handleListItemClick={() => setSelectIndex(index)}
-            />
+            <Link key={chat.id} to={`/chat/${chat.title}`}>
+              <Chat
+                  title={chat.title}
+                  selected={selectIndex === index}
+                  handleListItemClick={() => setSelectIndex(index)}
+               />
+             </Link>   
          ))}
+        
       </List>
    )
 }
