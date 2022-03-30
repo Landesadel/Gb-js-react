@@ -10,7 +10,7 @@ export const MessageItem = memo(({message}) => {
             [styles.userMessage]: message.author === 'User',
          })}>
          <h3>{message.author}</h3>
-         <p>{message.text}</p>
+         <p>{message.message}</p>
          <p>{message.date}</p>
       </div>
    );

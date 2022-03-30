@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { List } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Chat } from './Chat';
 
 export function ChatList() {
+   const { roomId } = useParams();
    const [chats] = useState([ 
       {
          title: 'Chat1',
@@ -18,9 +19,6 @@ export function ChatList() {
          id: Math.random(),
       },  
    ]);
-   
-   
-   const [selectIndex, setSelectIndex] = useState(0);
 
 
    return (
@@ -29,8 +27,7 @@ export function ChatList() {
             <Link key={chat.id} to={`/chat/${chat.title}`}>
               <Chat
                   title={chat.title}
-                  selected={selectIndex === index}
-                  handleListItemClick={() => setSelectIndex(index)}
+                  selected={roomId === chat.title}
                />
              </Link>   
          ))}

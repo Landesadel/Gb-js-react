@@ -1,13 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
+import {useParams} from 'react-router-dom';
 import { MessageItem } from './MessageItem';
 import { Input, InputAdornment } from '@mui/material';
 import { Send } from '@mui/icons-material';
 import { useStyles } from "./use-styles";
-import './MessageBox.css';
 
 export const MessageBox = () => {
-  const [messagesList, setMessagesList] = useState([]);
+  const [messageList, setMessageList] = useState({},);
   const [message, setMessage] = useState("");
+  const { roomId } = useParams();
   const styles = useStyles();
   const ref = useRef();
 
@@ -15,57 +16,57 @@ export const MessageBox = () => {
     if (ref.current) {
       ref.current.scrollTo(0, ref.current.scrollHeight);
     }
-  }, [messagesList]);
+  }, [messageList]);
 
-  const addNewMessage = (e) => {
-    e.preventDefault()
+  const addNewMessage = useCallback(
+    (message, author = 'User') => {
     if (message) {
-      setMessagesList([
-        ...messagesList,
-        {
-          author: 'User',
-          text: message,
-          date: new Date().toLocaleDateString(),
-        },
-      ]);
+      setMessageList({
+        ...messageList,
+        [roomId]: [ 
+          ...(messageList[roomId] ?? []),
+          {
+            author,
+            message,
+            date: new Date().toLocaleDateString(),
+          },
+        ],
+      });
       setMessage('');
     };
  
- };
+ }, [messageList, roomId]) 
    
- const PressInput = ({ code }) => {
+ const handlePressInput = ({ code }) => {
   if (code === "Enter") {
-    addNewMessage();
+    addNewMessage(message);
   }
 };
 
 
    useEffect(() => {
-     const lastMess = messagesList[messagesList.length - 1];
+     const messages = messageList[roomId] ?? [];
+     const lastMess = messages[messages.length - 1];
      let timerId = null;
-     if (messagesList.length && lastMess.author !== 'Bot') {
+
+     if (messages.length && lastMess.author !== 'Bot') {
        timerId = setTimeout(() => {
-         setMessagesList([
-           ...messagesList,
-           {
-             author: 'Bot',
-             text: 'Some very interesting answer!V_o_O_V',
-             date: new Date().toLocaleDateString(),
-           },
-         ]);
+         addNewMessage('Some very interesting answer!V_o_O_V', 'Bot');
        }, 700);
      }
      return () => {
        clearInterval(timerId);
        
      };   
-   }, [messagesList]);
+   }, [messageList, roomId, addNewMessage]);
  
+  const messages = messageList[roomId] ?? []
+  
    return (
      <>
         <div ref={ref}> 
-            {messagesList.map((message) => //перебираем массив мепом , и отображаем его через компонент MessageItem (верстка) 
-              <MessageItem   message={message} key={message.data} />
+            {messages.map((message) => //перебираем массив мепом , и отображаем его через компонент MessageItem (верстка) 
+              <MessageItem   message={message} key={message.date} />
             )} 
                  
         </div>
@@ -76,7 +77,7 @@ export const MessageBox = () => {
                 placeholder="Текст сообщения"
                 value={message}
                 onChange={e => setMessage(e.target.value)}
-                onKeyPress={PressInput}
+                onKeyPress={handlePressInput}
                 fullWidth
                 autoFocus={true}
                 ref={function(input) {
@@ -86,7 +87,7 @@ export const MessageBox = () => {
                 }}
                 endAdornment={
                     <InputAdornment position='end'>
-                      <Send className={styles.icon} onClick={addNewMessage}/>
+                      <Send className={styles.icon} onClick={ () => addNewMessage(message)}/>
                     </InputAdornment>
                 }
                 

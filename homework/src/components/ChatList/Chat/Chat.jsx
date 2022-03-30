@@ -16,13 +16,12 @@ const useStyles = makeStyles(() => {
    };
 });
 
-export function Chat({ title, selected, handleListItemClick}) {
+export function Chat({ title, selected}) {
    const styles = useStyles();
    return (
       <ListItemButton
          className={styles.item}
          selected={selected}
-         onClick={handleListItemClick}
       >
          <ListItem>
             <AccountCircle
