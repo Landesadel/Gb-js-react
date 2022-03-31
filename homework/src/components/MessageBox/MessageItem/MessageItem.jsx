@@ -1,4 +1,5 @@
-import {memo} from "react";
+import { memo } from "react";
+import { format } from 'date-fns';
 import cls from 'classnames';
 import styles from './MessageItem.module.css';
 
@@ -11,7 +12,7 @@ export const MessageItem = memo(({message}) => {
          })}>
          <h3>{message.author}</h3>
          <p>{message.message}</p>
-         <p>{message.date}</p>
+         <p>{format(message.date, 'yyyy-mm-dd hh:mm:ss' ) }</p>
       </div>
    );
 });

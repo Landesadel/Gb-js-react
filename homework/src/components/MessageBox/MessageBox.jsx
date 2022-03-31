@@ -28,7 +28,7 @@ export const MessageBox = () => {
           {
             author,
             message,
-            date: new Date().toLocaleDateString(),
+            date: new Date(),
           },
         ],
       });
@@ -86,9 +86,15 @@ export const MessageBox = () => {
                     }
                 }}
                 endAdornment={
-                    <InputAdornment position='end'>
-                      <Send className={styles.icon} onClick={ () => addNewMessage(message)}/>
-                    </InputAdornment>
+                  <InputAdornment position='end'>
+                    {message && (
+                      <Send
+                      className={styles.icon}
+                      onClick={() => addNewMessage(message)} 
+                      
+                      />
+                    )}    
+                  </InputAdornment>
                 }
                 
               />
