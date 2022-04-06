@@ -34,7 +34,7 @@ export const Header = () => {
                </Typography>
                <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
                {menuList.map(item => ( 
-                  <Button sx={{ my: 2, color: 'white', display: 'block' }}>
+                  <Button  sx={{ my: 2, color: 'white', display: 'block' }}>
                      <Link key={item.to} to={item.to} className={styles.link}>
                         {item.title}
                      </Link>

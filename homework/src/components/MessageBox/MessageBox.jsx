@@ -1,41 +1,39 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
-import {useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { MessageItem } from './MessageItem';
 import { Input, InputAdornment } from '@mui/material';
 import { Send } from '@mui/icons-material';
 import { useStyles } from "./use-styles";
+import { sendMessage } from '../../store/messages';
 
 export const MessageBox = () => {
-  const [messageList, setMessageList] = useState({},);
   const [message, setMessage] = useState("");
   const { roomId } = useParams();
   const styles = useStyles();
   const ref = useRef();
+  const dispatch = useDispatch();
 
+  const messages = useSelector(state => {
+    return state.messages.messages[roomId] ?? []
+  }
+
+  );
+  
   useEffect(() => {
     if (ref.current) {
       ref.current.scrollTo(0, ref.current.scrollHeight);
     }
-  }, [messageList]);
+  }, [messages]);
 
   const addNewMessage = useCallback(
     (message, author = 'User') => {
-    if (message) {
-      setMessageList({
-        ...messageList,
-        [roomId]: [ 
-          ...(messageList[roomId] ?? []),
-          {
-            author,
-            message,
-            date: new Date(),
-          },
-        ],
-      });
+      if (message) {
+        dispatch(sendMessage(roomId, { author: author || 'Bot', message }));
       setMessage('');
     };
  
- }, [messageList, roomId]) 
+ }, [roomId, dispatch])
    
  const handlePressInput = ({ code }) => {
   if (code === "Enter") {
@@ -45,7 +43,6 @@ export const MessageBox = () => {
 
 
    useEffect(() => {
-     const messages = messageList[roomId] ?? [];
      const lastMess = messages[messages.length - 1];
      let timerId = null;
 
@@ -58,15 +55,13 @@ export const MessageBox = () => {
        clearInterval(timerId);
        
      };   
-   }, [messageList, roomId, addNewMessage]);
- 
-  const messages = messageList[roomId] ?? []
+   }, [messages, roomId, addNewMessage]);
   
    return (
      <>
         <div ref={ref}> 
             {messages.map((message) => //перебираем массив мепом , и отображаем его через компонент MessageItem (верстка) 
-              <MessageItem   message={message} key={message.date} />
+              <MessageItem message={message} key={message.date} roomId={roomId}/>
             )} 
                  
         </div>

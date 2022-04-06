@@ -1,35 +1,46 @@
-import { useState } from 'react';
-import { List } from '@mui/material';
-import { Link, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { List, Button } from '@mui/material';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Chat } from './Chat';
+import { createConversations,deleteConversations } from '../../store/conversations';
 
 export function ChatList() {
    const { roomId } = useParams();
-   const [chats] = useState([ 
-      {
-         title: 'Chat1',
-         id: Math.random(),
-      },
-      {
-      title: 'Chat2',
-      id: Math.random(),
-      },
-      {
-         title: 'Chat3',
-         id: Math.random(),
-      },  
-   ]);
+   const dispatch = useDispatch();
+   const navigate = useNavigate();
+   const conversations = useSelector(
+      (state) => state.conversations.conversations
+   );
+
+   const create = () => {
+      const name = prompt(`Enter the chat's name`);
+      const validName = !conversations.includes(name);
+      if (!!name && validName) {
+         dispatch(createConversations(name));
+      } else {
+         alert('Name error!')
+      }
+   };
+   const deleteChat = (conversation) => {
+      dispatch(deleteConversations(conversation));
+      setTimeout(() => navigate('/chat'));
+   };
 
 
    return (
       <List component='nav'>
-         {chats.map((chat, index) => (
-            <Link key={chat.id} to={`/chat/${chat.title}`}>
-              <Chat
+         <Button onClick={create}>Create new chat</Button>
+         {conversations.map((chat) => (
+            <div key={chat.id}>
+               <Link  to={`/chat/${chat.title}`}>
+                 <Chat
                   title={chat.title}
                   selected={roomId === chat.title}
-               />
-             </Link>   
+                 />
+                 <Button onClick={() => deleteChat(chat)}>delete</Button>
+               </Link>  
+            </div>
+             
          ))}
         
       </List>
