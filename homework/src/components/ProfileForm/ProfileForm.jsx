@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Input, Button } from '@mui/material';
-import {updateProfile} from '../../store/profile'
 import styles from './ProfileForm.module.css';
+import { deleteMessage } from '../../store/messages';
 
 export function ProfileForm({firstName, lastName, phone, age}) {
    const [form, setForm] = useState({ firstName, lastName, phone, age });
@@ -44,7 +44,7 @@ export function ProfileForm({firstName, lastName, phone, age}) {
                inputProps={{ 'data-name': 'phone' }} 
                onChange={handleChangeForm}
                />
-            <Button onClick={() => {dispatch(updateProfile(form))}}>Save info</Button>
+            <Button onClick={() => {dispatch(deleteMessage(form))}}>Save info</Button>
          </form>
     </div>
  )

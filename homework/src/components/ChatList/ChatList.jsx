@@ -2,15 +2,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { List, Button } from '@mui/material';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Chat } from './Chat';
-import { createConversations,deleteConversations } from '../../store/conversations';
+import { createConversations,deleteConversations, conversationsSelector } from '../../store/conversations';
+
 
 export function ChatList() {
    const { roomId } = useParams();
    const dispatch = useDispatch();
    const navigate = useNavigate();
-   const conversations = useSelector(
-      (state) => state.conversations.conversations
-   );
+   
+   const conversations = useSelector(conversationsSelector);
 
    const create = () => {
       const name = prompt(`Enter the chat's name`);
