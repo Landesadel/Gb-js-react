@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { MessageItem } from './MessageItem';
 import { Input, InputAdornment } from '@mui/material';
 import { Send } from '@mui/icons-material';
 import { useStyles } from "./use-styles";
-import { sendMessage } from '../../store/messages';
+import { sendMessage, messagesSelector } from '../../store/messages';
 
 export const MessageBox = () => {
   const [message, setMessage] = useState("");
@@ -14,11 +14,9 @@ export const MessageBox = () => {
   const ref = useRef();
   const dispatch = useDispatch();
 
-  const messages = useSelector(state => {
-    return state.messages.messages[roomId] ?? []
-  }
+  const selector = useMemo(() => messagesSelector(roomId), [roomId])
 
-  );
+  const messages = useSelector(selector, shallowEqual);
   
   useEffect(() => {
     if (ref.current) {
