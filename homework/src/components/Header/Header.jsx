@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Header.module.css';
+import SmsIcon from '@mui/icons-material/Sms';
 import {
    Button,
    Avatar,
@@ -30,7 +31,7 @@ export const Header = () => {
                   component='div'
                   sx={{ mr: 2, display: { xs: 'flex', md: 'flex' } }}
                >
-                  LOGO
+                  <SmsIcon sx={{ color: 'white' }} fontSize="large"/>
                </Typography>
                <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
                {menuList.map(item => ( 

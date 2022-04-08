@@ -6,6 +6,7 @@ import { Input, InputAdornment } from '@mui/material';
 import { Send } from '@mui/icons-material';
 import { useStyles } from "./use-styles";
 import { sendMessage, messagesSelector } from '../../store/messages';
+import { usePrevious } from '../../hooks/use-previous'
 
 export const MessageBox = () => {
   const [message, setMessage] = useState("");
@@ -14,9 +15,12 @@ export const MessageBox = () => {
   const ref = useRef();
   const dispatch = useDispatch();
 
+
   const selector = useMemo(() => messagesSelector(roomId), [roomId])
 
   const messages = useSelector(selector, shallowEqual);
+
+  const previousLengthMes = usePrevious(messages.length);
   
   useEffect(() => {
     if (ref.current) {
@@ -44,7 +48,7 @@ export const MessageBox = () => {
      const lastMess = messages[messages.length - 1];
      let timerId = null;
 
-     if (messages.length && lastMess.author !== 'Bot') {
+     if (messages.length > previousLengthMes && lastMess.author !== 'Bot') {
        timerId = setTimeout(() => {
          addNewMessage('Some very interesting answer!V_o_O_V', 'Bot');
        }, 700);
@@ -59,7 +63,7 @@ export const MessageBox = () => {
      <>
         <div ref={ref}> 
             {messages.map((message) => //перебираем массив мепом , и отображаем его через компонент MessageItem (верстка) 
-              <MessageItem message={message} key={message.date} roomId={roomId}/>
+              <MessageItem message={message} key={message.id} roomId={roomId}/>
             )} 
                  
         </div>
@@ -69,7 +73,7 @@ export const MessageBox = () => {
                 type="text"
                 placeholder="Текст сообщения"
                 value={message}
-                onChange={e => setMessage(e.target.value)}
+                onChange={(e) => setMessage(e.target.value)}
                 onKeyPress={handlePressInput}
                 fullWidth
                 autoFocus={true}

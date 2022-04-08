@@ -1,9 +1,9 @@
 import { memo } from "react";
 import { format } from 'date-fns';
 import { useDispatch } from "react-redux";
-import { Button } from '@mui/material';
 import cls from 'classnames';
 import styles from './MessageItem.module.css';
+import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import { deleteMessage } from "../../../store/messages";
 
 
@@ -16,8 +16,13 @@ export const MessageItem = memo(({ message }) => {
          })}>
          <h3>{message.author}</h3>
          <p>{message.message}</p>
-         <Button onClick={() => {dispatch(deleteMessage(message))}}>x</Button>
-         <p>{format(message.date, 'yyyy-mm-dd hh:mm:ss' ) }</p>
+         <div className={styles.subBox}>
+            <button className={styles.btnDel} onClick={() => { dispatch(deleteMessage(message.id )) }}>
+               <DeleteForeverTwoToneIcon fontSize="small"/>
+            </button>
+            <p>{format(message.date, 'yyyy-mm-dd hh:mm:ss' ) }</p>
+         </div>
+         
       </div>
    );
 });

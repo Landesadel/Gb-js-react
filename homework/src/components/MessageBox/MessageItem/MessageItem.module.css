@@ -1,6 +1,7 @@
 .messageBox {
    border-radius: 10px;
    background-color: #182533;
+   border: 3px solid #566169;
    color: #fff;
    padding: 10px;
    width: 35%;
@@ -10,9 +11,26 @@
    word-break: break-all;
 }
 
+.subBox {
+   display: flex;
+   align-items: flex-end;
+   flex-direction: column;
+   text-align: center;
+   margin-top: 10px;
+}
+
+.btnDel {
+   border: 2px solid #566b7c;
+   color:rgba(255, 255, 255, 0.822);
+   background-color: #45535d;
+   border-radius: 16px;
+   margin-bottom: 10px;
+}
+
 .userMessage {
    margin: 0 0 10px auto;
-   background-color: #2b5278;
+   background-color: #465d73;
+   border: 3px solid #373b3f;
 }
 
 .messageBox p:last-child {
@@ -21,6 +39,6 @@
 }
 
 .userMessage p:last-child {
-   color:#45719f;
+   color:#8192a4;
    text-align: right;
 }
