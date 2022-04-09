@@ -26,9 +26,9 @@ export const messagesReducer = (state = initialState, action) => {
               ...state,
               messages: {
                 ...state.messages,
-                [action.payload.roomId]: state.messages[action.payload.roomId].filter(
-                  (message) => message.id !== action.payload.messageId
-                ),
+                 [action.payload.roomId]: state.messages[action.payload.roomId].filter(
+                   (message) => message.id !== action.payload.messageId
+                ) ,
               },
          };
       

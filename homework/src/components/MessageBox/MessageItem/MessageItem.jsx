@@ -7,7 +7,7 @@ import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import { deleteMessage } from "../../../store/messages";
 
 
-export const MessageItem = memo(({ message }) => {
+export const MessageItem = memo(({ message, roomId }) => {
    const dispatch = useDispatch();
    return (
       <div
@@ -17,7 +17,7 @@ export const MessageItem = memo(({ message }) => {
          <h3>{message.author}</h3>
          <p>{message.message}</p>
          <div className={styles.subBox}>
-            <button className={styles.btnDel} onClick={() => { dispatch(deleteMessage(message.id )) }}>
+            <button className={styles.btnDel} onClick={() => { dispatch(deleteMessage( roomId, message.id )) }}>
                <DeleteForeverTwoToneIcon fontSize="small"/>
             </button>
             <p>{format(message.date, 'yyyy-mm-dd hh:mm:ss' ) }</p>

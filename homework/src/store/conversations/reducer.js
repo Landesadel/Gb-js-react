@@ -1,18 +1,19 @@
+import { nanoid } from "nanoid";
 import { CREATE_CONVERSATION, DELETE_CONVERSATION } from "./types";
 
 const initialState = {
       conversations: [
       {
          title: 'Chat1',
-         id: Math.random(),
+         id: nanoid(),
       },
       {
       title: 'Chat2',
-      id: Math.random(),
+      id: nanoid(),
       },
       {
          title: 'Chat3',
-         id: Math.random(),
+         id: nanoid(),
       },  
    ],
 };
@@ -24,7 +25,7 @@ export const conversationsReducer = (state = initialState, action) => {
             ...state,
             conversations: [...state.conversations, {
                title: action.payload,
-               id: Math.random(),
+               id: nanoid(),
             }],
          };
       case DELETE_CONVERSATION:

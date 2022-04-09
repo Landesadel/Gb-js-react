@@ -15,8 +15,8 @@ import {
 
 
 const menuList = [
-   { title: 'Home', to: '/' },
-   { title: 'Profile', to: '/profile' },
+   { title: 'Home', to: '/'},
+   { title: 'Profile', to: '/profile'},
    { title: 'Chat', to: '/chat' },
 ]
 

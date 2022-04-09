@@ -48,7 +48,7 @@ export const MessageBox = () => {
      const lastMess = messages[messages.length - 1];
      let timerId = null;
 
-     if (messages.length > previousLengthMes && lastMess.author !== 'Bot') {
+     if (messages.length > previousLengthMes && lastMess.author === 'User') {
        timerId = setTimeout(() => {
          addNewMessage('Some very interesting answer!V_o_O_V', 'Bot');
        }, 700);
@@ -57,7 +57,7 @@ export const MessageBox = () => {
        clearInterval(timerId);
        
      };   
-   }, [messages, roomId, addNewMessage]);
+   }, [messages, roomId, addNewMessage, previousLengthMes]);
   
    return (
      <>
