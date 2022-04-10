@@ -18,7 +18,6 @@ export const ProfilePage = () => {
                   <h3 className={styles.infoText}>LastName: <span>{lastName}</span></h3>
                   <h3 className={styles.infoText}>Age: <span>{age}</span></h3>
                   <h3 className={styles.infoText}>Phone: <span>{phone}</span></h3>
-                  <h3 className={styles.infoText}>Country: <span>{country}</span></h3>
                   
                </>
             )}
