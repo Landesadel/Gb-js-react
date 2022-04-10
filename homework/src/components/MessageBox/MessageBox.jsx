@@ -5,7 +5,7 @@ import { MessageItem } from './MessageItem';
 import { Input, InputAdornment } from '@mui/material';
 import { Send } from '@mui/icons-material';
 import { useStyles } from "./use-styles";
-import { sendMessage, messagesSelector } from '../../store/messages';
+import {  messagesSelector, sendMessageWithBot } from '../../store/messages';
 import { usePrevious } from '../../hooks/use-previous'
 
 export const MessageBox = () => {
@@ -30,12 +30,16 @@ export const MessageBox = () => {
 
   const addNewMessage = useCallback(
     (message, author = 'User') => {
+      console.log('message', message);
       if (message) {
-        dispatch(sendMessage(roomId, { author: author || 'Bot', message }));
-      setMessage('');
-    };
+        dispatch(
+          sendMessageWithBot(roomId, { author: author || 'Bot', message })
+        );
+        setMessage('');
+      };
  
- }, [roomId, dispatch])
+    }, [roomId, dispatch]
+  );
    
  const handlePressInput = ({ code }) => {
   if (code === "Enter") {
@@ -51,13 +55,14 @@ export const MessageBox = () => {
      if (messages.length > previousLengthMes && lastMess.author === 'User') {
        timerId = setTimeout(() => {
          addNewMessage('Some very interesting answer!V_o_O_V', 'Bot');
-       }, 700);
+       }, 600);
      }
      return () => {
        clearInterval(timerId);
        
      };   
    }, [messages, roomId, addNewMessage, previousLengthMes]);
+ 
   
    return (
      <>

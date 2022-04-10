@@ -2,7 +2,8 @@ import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
 import { profileReducer } from './profile';
 import { conversationsReducer } from './conversations';
 import { messagesReducer } from './messages';
-import { logger, botMessage, timeScheduler, thunk } from './middlewares';
+import { logger, botMessage, timeScheduler } from './middlewares';
+import thunk from 'redux-thunk';
 
 export const store = createStore(
    combineReducers({
