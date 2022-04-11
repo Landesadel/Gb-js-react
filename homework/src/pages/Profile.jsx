@@ -5,7 +5,7 @@ import styles from './pages.module.css'
 
 
 export const ProfilePage = () => {
-   const { firstName, lastName,country, phone, age, stVisibleProfile } = useSelector((state) => state.profile);
+   const { firstName, lastName, phone, age, stVisibleProfile } = useSelector((state) => state.profile);
    const dispatch = useDispatch();
    return (
       <div className={styles.profileBox}>

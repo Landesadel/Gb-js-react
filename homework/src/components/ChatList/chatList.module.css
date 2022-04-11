@@ -1,0 +1,19 @@
+.btnChat {
+   border: 1px solid #566b7c;
+   color:#ffffffd2;
+   background-color: #45535d;
+   border-radius: 16px;
+   padding: 5px;
+   text-transform: lowercase;
+   
+}
+
+.btnChat:hover {
+   color:#45535d;
+   background-color: #ffffffd2;
+}
+
+.btnChat:active {
+   color:#ffffffd2;
+   background-color: #45535d;
+}

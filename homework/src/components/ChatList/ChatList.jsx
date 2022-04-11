@@ -1,7 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { List, Button } from '@mui/material';
+import { List, Button} from '@mui/material';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Chat } from './Chat';
+import st from './chatList.module.css';
 import { createConversations,deleteConversations, conversationsSelector } from '../../store/conversations';
 
 
@@ -32,12 +33,15 @@ export function ChatList() {
          <Button onClick={create}>Create new chat</Button>
          {conversations.map((chat) => (
             <div key={chat.id}>
-               <Link  to={`/chat/${chat.title}`}>
-                 <Chat
-                  title={chat.title}
-                  selected={roomId === chat.title}
-                 />
-                 <Button onClick={() => deleteChat(chat)}>delete</Button>
+               <Link to={`/chat/${chat.title}`}>
+                  
+                  <Chat
+                     title={chat.title}
+                     selected={roomId === chat.title}
+                  />
+                  <button className={st.btnChat} onClick={() => deleteChat(chat)}>
+                     delete
+                  </button>
                </Link>  
             </div>
              

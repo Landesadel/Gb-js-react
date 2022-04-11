@@ -10,6 +10,7 @@
 }
 
 .appBar {
+   height: 12%;
    border-bottom: 1px solid #000;
    background-color: #17212b !important;
 }

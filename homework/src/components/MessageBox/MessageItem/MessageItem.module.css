@@ -27,6 +27,16 @@
    margin-bottom: 10px;
 }
 
+.btnDel:hover {
+   color:#45535d;
+   background-color: #ffffffd2;
+}
+
+.btnDel:active {
+   color:#ffffffd2;
+   background-color: #45535d;
+}
+
 .userMessage {
    margin: 0 0 10px auto;
    background-color: #465d73;
