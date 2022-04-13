@@ -1,2 +1,3 @@
-export * from './Profile.jsx';
-export * from './Chat.jsx';
+export * from './Profile';
+export * from './Chat';
+export * from './Gists';
