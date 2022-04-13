@@ -1,20 +1,21 @@
 import axios from 'axios';
 
 class Request {
-   constructor() {
+   constructor(token = '') {
       this.request = axios.create({
          baseURL: 'https://api.github.com',
       });
+      this.token = token;
    }
 
    get = (url) => {
-      return this.request.get(url)
+      return this.request.get(url);
    };
    post = (url, body) => {
-      return this.request.post(url, body)
+      return this.request.post(url, body);
    };
    delete = (url) => {
-      return this.request.delete(url)
+      return this.request.delete(url);
    };
 }
 

@@ -7,7 +7,7 @@ const initialState = {
 };
 
 export const gistsReducer = (state = initialState, action) => {
-   switch (action.tipe) {
+   switch (action.type) {
       case GET_GISTS_START:
          return { ...state, pending: true, error: null };
       case GET_GISTS_SUCCESS:
