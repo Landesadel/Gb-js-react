@@ -21,7 +21,13 @@ const menuList = [
    { title: 'Gists', to: '/Gists' },
 ]
 
-export const Header = () => {
+const menuWithoutLogin = [
+   { title: 'Login', to: '/login'},
+   { title: 'Sign-up', to: '/sign-up'},
+
+]
+
+export const Header = ({session}) => {
    return (
       <AppBar  position='static' color='primary' className={styles.appBar}>
          <Container maxWidth='xl'>
@@ -34,20 +40,34 @@ export const Header = () => {
                >
                   <SmsIcon sx={{ color: 'white' }} fontSize="large"/>
                </Typography>
-               <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
-               {menuList.map(item => ( 
-                  <Button  sx={{ my: 2, color: 'white', display: 'block' }}>
-                     <Link key={item.to} to={item.to} className={styles.link}>
+               {!!session && (
+                  <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
+                    {menuList.map(item => (
+                       <Button sx={{ my: 2, color: 'white', display: 'block' }}>
+                         <Link key={item.to} to={item.to} className={styles.link}>
+                           {item.title}
+                         </Link>
+                       </Button>
+                    ))}
+                  </Box>
+               )}
+              
+               {!session && (
+                  <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
+                    {menuWithoutLogin.map(item => ( 
+                      <Button  sx={{ my: 2, color: 'white', display: 'block' }}>
+                        <Link key={item.to} to={item.to} className={styles.link}>
                         {item.title}
-                     </Link>
-                  </Button>
-               ))}   
-               </Box>
-               <Box sx={{ flexGrow: 0 }}>
+                        </Link>
+                      </Button>
+                    ))}   
+                  </Box>
+               )}
+                <Box sx={{ flexGrow: 0 }}>
                   <IconButton sx={{ p: 0 }}>
                      <Avatar/>
                   </IconButton>
-                  </Box>
+               </Box>
            </Toolbar>
         </Container>
       </AppBar>

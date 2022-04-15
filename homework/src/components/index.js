@@ -3,3 +3,4 @@ export * from './MessageBox';
 export * from './Template';
 export * from './ChatList';
 export * from './ProfileForm';
+export * from './route';
