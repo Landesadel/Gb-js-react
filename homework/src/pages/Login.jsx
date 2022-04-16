@@ -1,5 +1,11 @@
 import { useState } from "react";
 import { Input, Button } from '@mui/material';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../api/firebase';
+
+const login = (form) => {
+   signInWithEmailAndPassword(auth, form.email, form.pssword);
+};
 
 export function LoginPage() {
    const [form, setForm] = useState({ email: "", password: "" });
@@ -29,7 +35,7 @@ export function LoginPage() {
                inputProps={{ 'data-name': 'password' }} 
                onChange={handleChangeForm}
             />
-            <Button onClick={console.log('form', form)}>Login</Button>
+            <Button onClick={() => {login(form)}}>Login</Button>
          </form>
       </div>
    )

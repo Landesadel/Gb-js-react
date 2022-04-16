@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import {Provider} from 'react-redux';
@@ -7,15 +7,41 @@ import reportWebVitals from './reportWebVitals';
 import {  Header, PrivateRoute, PublicRoute } from './components';
 import { ProfilePage, ChatPage, GistsPage, SignUpPage, LoginPage } from './pages';
 import { store, persistor } from './store';
+import { auth } from './api/firebase'; 
+import { onAuthStateChanged } from 'firebase/auth';
 import './styles/App.css';
 
-const isAuth = false;
+// const dispatch = useDispatch;
 
+// const thunk = () => () => {
+//   const unbind = onAuthStateChanged(auth, (user) => {
+//     console.log('user', user);
+//     if (user) {
+//       dispatch(user)
+//     } else {
+//       dispatch(null)
+//     }
+//   })
+//   unbind();
+// };
 
+const App = () => {
+  const [session, setSession] = useState(null)
 
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      console.log('user', user);
+      if (user) {
+        setSession(user)
+      } else {
+        setSession(null)
+      }
+    });
+  }, []);
 
-ReactDOM.render(
-  <React.StrictMode>
+  const isAuth = !!session;
+
+  return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <BrowserRouter>
@@ -76,6 +102,15 @@ ReactDOM.render(
         </BrowserRouter>
      </PersistGate>
     </Provider>
+  )
+};
+
+
+
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App/>
   </React.StrictMode>,
   document.getElementById('root')
 );

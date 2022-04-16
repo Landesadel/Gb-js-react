@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Header.module.css';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../api/firebase';
 import SmsIcon from '@mui/icons-material/Sms';
 import {
    Button,
@@ -51,6 +53,8 @@ export const Header = ({session}) => {
                     ))}
                   </Box>
                )}
+
+               {!!session && (<button onClick={() => signOut(auth)}>Log out.</button>)}
               
                {!session && (
                   <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>

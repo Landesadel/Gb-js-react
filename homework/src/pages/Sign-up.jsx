@@ -1,5 +1,12 @@
 import { useState } from "react";
 import { Input, Button } from '@mui/material';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../api/firebase';
+
+
+const create = async (form) => {
+  await createUserWithEmailAndPassword(auth, form.email, form.password);
+};
 
 export function SignUpPage() {
    const [form, setForm] = useState({ email: "", password: "" });
@@ -15,7 +22,7 @@ export function SignUpPage() {
 
    return (
       <div>
-         <h1>Login page!</h1>
+         <h1>Sign-up page!</h1>
          <form>
            <Input
                placeholder='Enter your email...'
@@ -29,7 +36,7 @@ export function SignUpPage() {
                inputProps={{ 'data-name': 'password' }} 
                onChange={handleChangeForm}
             />
-            <Button onClick={console.log('form', form)}>Login</Button>
+            <Button onClick={() => {create(form)}}>Sign-up!</Button>
          </form>
       </div>
    )
