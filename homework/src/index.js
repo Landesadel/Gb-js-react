@@ -39,7 +39,7 @@ const App = () => {
     });
   }, []);
 
-  const isAuth = !!session;
+  const isAuth = true
 
   return (
     <Provider store={store}>

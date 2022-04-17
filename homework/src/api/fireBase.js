@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
+// import { getConversationApi } from "./conversations";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBbn77cEZhAT1tiz-tAocG6FNbbcOh5-lw",
@@ -17,4 +18,4 @@ const firebaseConfig = {
 export const fireBaseApp = initializeApp(firebaseConfig);
 export const analytics = getAnalytics(fireBaseApp);
 export const auth = getAuth(fireBaseApp);
-export const dataBase = getDatabase(fireBaseApp);
+export const database = getDatabase(fireBaseApp);

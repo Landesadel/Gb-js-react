@@ -8,6 +8,9 @@ import { messagesReducer } from './messages';
 import { gistsReducer } from './gists';
 import { logger, botMessage, timeScheduler, crashReporter } from './middlewares';
 import thunk from 'redux-thunk';
+import { getConversationApi } from '../api/conversations';
+
+const apis = { getPublicApiGists, getConversationApi };
 
 const persistConfig = {
    key: 'root',
@@ -28,7 +31,7 @@ export const store = createStore(
    compose(
       applyMiddleware(
          crashReporter,
-         thunk.withExtraArgument({getPublicApiGists}),
+         thunk.withExtraArgument(apis),
          logger,
          botMessage,
          timeScheduler),
