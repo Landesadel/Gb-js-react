@@ -30,7 +30,6 @@ export const MessageBox = () => {
 
   const addNewMessage = useCallback(
     (message, author = 'User') => {
-      console.log('message', message);
       if (message) {
         dispatch(
           sendMessageWithBot(roomId, { author: author || 'Bot', message })

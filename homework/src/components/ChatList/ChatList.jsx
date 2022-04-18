@@ -3,7 +3,7 @@ import { List, Button} from '@mui/material';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Chat } from './Chat';
 import st from './chatList.module.css';
-import { createConversations,deleteConversations, conversationsSelector } from '../../store/conversations';
+import { createConversationFb, deleteConversations, conversationsSelector } from '../../store/conversations';
 
 
 export function ChatList() {
@@ -11,33 +11,37 @@ export function ChatList() {
    const dispatch = useDispatch();
    const navigate = useNavigate();
    
-   const conversations = useSelector(conversationsSelector);
+   const { conversations, pending } = useSelector(conversationsSelector);
 
    const create = () => {
       const name = prompt(`Enter the chat's name`);
       const validName = !conversations.includes(name);
       if (!!name && validName) {
-         dispatch(createConversations(name));
+         dispatch(createConversationFb(name));
       } else {
          alert('Name error!')
       }
    };
    const deleteChat = (conversation) => {
       dispatch(deleteConversations(conversation));
-      setTimeout(() => navigate('/chat'));
+      navigate('/chat');
    };
+
+   if (pending) {
+      return <h1>...pending...</h1>
+   }
 
 
    return (
       <List component='nav'>
          <Button onClick={create}>Create new chat</Button>
-         {conversations.map((chat) => (
-            <div key={chat.id}>
-               <Link to={`/chat/${chat.title}`}>
+         {conversations.map((chat, index) => (
+            <div key={index}>
+               <Link to={`/chat/${chat}`}>
                   
                   <Chat
-                     title={chat.title}
-                     selected={roomId === chat.title}
+                     title={chat}
+                     selected={roomId === chat}
                   />
                   <button className={st.btnChat} onClick={() => deleteChat(chat)}>
                      delete

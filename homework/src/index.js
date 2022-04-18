@@ -1,35 +1,103 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import {Provider} from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
-import {  Header } from './components';
-import { ProfilePage, ChatPage, GistsPage } from './pages';
+import {  Header, PrivateRoute, PublicRoute } from './components';
+import { ProfilePage, ChatPage, GistsPage, SignUpPage, LoginPage } from './pages';
 import { store, persistor } from './store';
+import { auth } from './api/frbase'; 
+import { onAuthStateChanged } from 'firebase/auth';
 import './styles/App.css';
 
 
+const App = () => {
+  const [setSession] = useState(null)
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      console.log('user', user);
+      if (user) {
+        setSession(user)
+      } else {
+        setSession(null)
+      }
+    });
+  }, []);
+
+  const isAuth = true;
+
+  return (
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <BrowserRouter>
+          <Header session={isAuth}/>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <PrivateRoute isAuth={isAuth} to='/login'>
+                  <h1> Home page</h1>
+                </PrivateRoute>
+                
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <PrivateRoute isAuth={isAuth}>
+                  <ProfilePage />
+                </PrivateRoute>  
+              } 
+            />
+            <Route
+              path="/chat/*"
+              element=
+              {
+                <PrivateRoute isAuth={isAuth}>
+                  <ChatPage />
+                </PrivateRoute> 
+              }
+            />
+            <Route
+              path="/gists"
+              element={
+                <PrivateRoute isAuth={isAuth}>
+                  <GistsPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <PublicRoute isAuth={isAuth}>
+                  <LoginPage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/sign-up"
+              element={
+                <PublicRoute isAuth={isAuth}>
+                  <SignUpPage />
+                </PublicRoute>
+              }
+            />
+            <Route path="*" element={<h1> Page is not found! /_(O_o )</h1>}/>
+          </Routes>
+        </BrowserRouter>
+     </PersistGate>
+    </Provider>
+  )
+};
 
 
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <BrowserRouter>
-          <Header/>
-          <Routes>
-            <Route path="/" element={<h1> Home page</h1>} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/chat/*" element={<ChatPage />} />
-            <Route path="/gists" element={<GistsPage/>}/>
-            <Route path="*" element={<h1> Page is not found! /_(O_o )</h1>}/>
-          </Routes>
-        </BrowserRouter>
-     </PersistGate>
-    </Provider>
+    <App/>
   </React.StrictMode>,
   document.getElementById('root')
 );

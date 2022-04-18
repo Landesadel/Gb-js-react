@@ -1,22 +1,21 @@
-import { nanoid } from "nanoid";
-import { CREATE_CONVERSATION } from "./types";
+
+import {
+   CREATE_CONVERSATION,
+   GET_CONVERSATION_ERROR,
+   GET_CONVERSATION_START,
+   GET_CONVERSATION_SUCCESS,
+   CREATE_CONVERSATION_START,
+   CREATE_CONVERSATION_SUCCESS,
+   CREATE_CONVERSATION_ERROR,
+} from "./types";
 import { DELETE_CONVERSATION } from '../types';
 
 const initialState = {
-      conversations: [
-      {
-         title: 'Chat1',
-         id: nanoid(),
-      },
-      {
-      title: 'Chat2',
-      id: nanoid(),
-      },
-      {
-         title: 'Chat3',
-         id: nanoid(),
-      },  
-   ],
+   conversations: [],
+   pending: false,
+   error: null,
+   createConversationPending: false,
+   createConversationError: null,
 };
 
 export const conversationsReducer = (state = initialState, action) => {
@@ -24,10 +23,7 @@ export const conversationsReducer = (state = initialState, action) => {
       case CREATE_CONVERSATION:
          return {
             ...state,
-            conversations: [...state.conversations, {
-               title: action.payload,
-               id: nanoid(),
-            }],
+            conversations: [...state.conversations, action.payload],
          };
       case DELETE_CONVERSATION:
          return {
@@ -36,7 +32,32 @@ export const conversationsReducer = (state = initialState, action) => {
                (conversation) => conversation !== action.payload
             ),
          };
-   
+     case GET_CONVERSATION_START:
+         return { ...state, pending: true, error: null };
+     case GET_CONVERSATION_SUCCESS:
+         return { ...state, pending: false, conversations: action.payload };
+     case GET_CONVERSATION_ERROR:
+         return { ...state, pending: false, error: action.payload };
+      
+      
+     case CREATE_CONVERSATION_START:
+         return {
+              ...state,
+              createConversationPending: true,
+              createConversationError: null,
+         };
+     case CREATE_CONVERSATION_SUCCESS:
+         return {
+              ...state,
+              createConversationPending: false,
+              conversations: [action.payload, ...state.conversations],
+        };
+     case CREATE_CONVERSATION_ERROR:
+         return {
+              ...state,
+              createConversationPending: false,
+              createConversationError: action.payload,
+         };
       default:
          return state;
    }

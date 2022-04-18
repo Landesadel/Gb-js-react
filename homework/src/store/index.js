@@ -2,12 +2,22 @@ import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { profileReducer } from './profile';
-import { getPublicApiGists } from '../api/gists';
+import { getPublicApiGists, searchGistsByNameApi } from '../api/gists';
 import { conversationsReducer } from './conversations';
 import { messagesReducer } from './messages';
 import { gistsReducer } from './gists';
 import { logger, botMessage, timeScheduler, crashReporter } from './middlewares';
 import thunk from 'redux-thunk';
+import { getConversationApi, createConversationApi, } from '../api/conversations';
+import { getMessagesApi, createMessageApi } from "../api/messages";
+
+const apis = {
+   getPublicApiGists,
+   searchGistsByNameApi,
+   getConversationApi,
+   getMessagesApi,
+   createMessageApi,
+   createConversationApi,};
 
 const persistConfig = {
    key: 'root',
@@ -28,7 +38,7 @@ export const store = createStore(
    compose(
       applyMiddleware(
          crashReporter,
-         thunk.withExtraArgument({getPublicApiGists}),
+         thunk.withExtraArgument(apis),
          logger,
          botMessage,
          timeScheduler),
