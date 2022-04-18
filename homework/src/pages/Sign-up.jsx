@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Input, Button } from '@mui/material';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../api/firebase';
+import { auth } from '../api/frbase';
 
 
-const create = async (form) => {
-  await createUserWithEmailAndPassword(auth, form.email, form.password);
+const create = (form) => {
+   createUserWithEmailAndPassword(auth, form.email, form.password);
 };
 
 export function SignUpPage() {

@@ -7,26 +7,13 @@ import reportWebVitals from './reportWebVitals';
 import {  Header, PrivateRoute, PublicRoute } from './components';
 import { ProfilePage, ChatPage, GistsPage, SignUpPage, LoginPage } from './pages';
 import { store, persistor } from './store';
-import { auth } from './api/firebase'; 
+import { auth } from './api/frbase'; 
 import { onAuthStateChanged } from 'firebase/auth';
 import './styles/App.css';
 
-// const dispatch = useDispatch;
-
-// const thunk = () => () => {
-//   const unbind = onAuthStateChanged(auth, (user) => {
-//     console.log('user', user);
-//     if (user) {
-//       dispatch(user)
-//     } else {
-//       dispatch(null)
-//     }
-//   })
-//   unbind();
-// };
 
 const App = () => {
-  const [session, setSession] = useState(null)
+  const [setSession] = useState(null)
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -39,7 +26,7 @@ const App = () => {
     });
   }, []);
 
-  const isAuth = true
+  const isAuth = true;
 
   return (
     <Provider store={store}>

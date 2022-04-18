@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Input, Button } from '@mui/material';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../api/firebase';
+import { auth } from '../api/frbase';
 
 const login = (form) => {
    signInWithEmailAndPassword(auth, form.email, form.pssword);

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Header.module.css';
 import { signOut } from 'firebase/auth';
-import { auth } from '../../api/firebase';
+import { auth } from '../../api/frbase';
 import SmsIcon from '@mui/icons-material/Sms';
 import {
    Button,

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Route, Routes, useNavigate} from 'react-router-dom';
 import { Template, ChatList, MessageBox } from '../components';
 import { getConversations } from '../store/conversations';
-
+import { getMessages } from '../store/messages';
 
 
 export const ChatPage = () => {
@@ -14,7 +14,7 @@ export const ChatPage = () => {
       const listener = ({ code }) => {
       
          if (code === 'Escape') {
-            navback();
+            navback('/chat');
          }
       };
       document.addEventListener('keydown', listener)
@@ -25,7 +25,8 @@ export const ChatPage = () => {
    }, [navback]);
 
    useEffect(() => {
-      dispatch(getConversations());   
+      dispatch(getConversations());
+      dispatch(getMessages());
     }, [dispatch])
 
    return (
