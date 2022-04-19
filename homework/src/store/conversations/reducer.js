@@ -50,7 +50,7 @@ export const conversationsReducer = (state = initialState, action) => {
          return {
               ...state,
               createConversationPending: false,
-              conversations: [action.payload, ...state.conversations],
+              conversations: [...state.conversations, action.payload],
         };
      case CREATE_CONVERSATION_ERROR:
          return {

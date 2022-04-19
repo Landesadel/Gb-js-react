@@ -5,7 +5,7 @@ import { MessageItem } from './MessageItem';
 import { Input, InputAdornment } from '@mui/material';
 import { Send } from '@mui/icons-material';
 import { useStyles } from "./use-styles";
-import {  messagesSelector, sendMessageWithBot } from '../../store/messages';
+import {  messagesSelector,  createMessageFb } from '../../store/messages';
 import { usePrevious } from '../../hooks/use-previous'
 
 export const MessageBox = () => {
@@ -32,7 +32,7 @@ export const MessageBox = () => {
     (message, author = 'User') => {
       if (message) {
         dispatch(
-          sendMessageWithBot(roomId, { author: author || 'Bot', message })
+          createMessageFb(roomId, { author: author || 'Bot', message })
         );
         setMessage('');
       };
@@ -75,7 +75,7 @@ export const MessageBox = () => {
               <Input
                 className={styles.input}
                 type="text"
-                placeholder="Текст сообщения"
+                placeholder="Message text..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 onKeyPress={handlePressInput}

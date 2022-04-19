@@ -3,7 +3,11 @@ import { List, Button} from '@mui/material';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Chat } from './Chat';
 import st from './chatList.module.css';
-import { createConversationFb, deleteConversations, conversationsSelector } from '../../store/conversations';
+import {
+   createConversationFb,
+   deleteConversations,
+   conversationsSelector
+} from '../../store/conversations';
 
 
 export function ChatList() {
