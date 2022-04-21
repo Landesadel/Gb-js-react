@@ -1,5 +1,4 @@
 import {
-   SEND_MESSAGE,
    DELETE_MESSAGE,
    GET_MESSAGES_START,
    GET_MESSAGES_SUCCESS,
@@ -69,8 +68,6 @@ export const messagesReducer = (state = initialState, action) => {
           case CREATE_MESSAGES_START:
             return { ...state, pendingSendMessage: true, errorSendMessage: null };
       
-      
-          case SEND_MESSAGE:
           case CREATE_MESSAGES_SUCCESS:
                  return {
                    ...state,
